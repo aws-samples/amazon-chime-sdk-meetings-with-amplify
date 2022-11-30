@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './App.css';
+import Predictions from '@aws-amplify/predictions';
 import { Container, Header, SpaceBetween } from '@cloudscape-design/components';
 import { useAudioVideo } from 'amazon-chime-sdk-component-library-react';
 import { Amplify } from 'aws-amplify';
@@ -31,14 +32,41 @@ const handlePartialTranscripts = (incomingTranscripts, outputText, setCurrentLin
   }
 }
 
-const Transcription = ({ setLine, transcripts, lines }) => {
+const Transcription = ({targetLanguage, setLine, transcripts, lines }) => {
   const [incomingTranscripts, setIncomingTranscripts] = useState([]);
   const audioVideo = useAudioVideo();
   const [currentLine, setCurrentLine] = useState({});
 
   useEffect(() => {
     async function transcribeText() {
+      console.log(
+        `incomingTranscripts: ${JSON.stringify(incomingTranscripts)}`,
+      );
       if (incomingTranscripts.transcriptEvent) {
+        console.log(`sourceLanguage: ${incomingTranscripts.sourceLanguage}`);
+        console.log(`targetLanguage: ${targetLanguage}`);
+
+        if (incomingTranscripts.sourceLanguage !== targetLanguage) {
+          const translateResult = await Predictions.convert({
+            translateText: {
+              source: {
+                text: incomingTranscripts.transcriptEvent,
+                language: incomingTranscripts.sourceLanguage,
+              },
+              targetLanguage: targetLanguage,
+            },
+          });
+          console.log(
+            `translateResult: ${JSON.stringify(translateResult.text)}`,
+          );
+
+          handlePartialTranscripts(
+              incomingTranscripts,
+              translateResult.text,
+              setCurrentLine,
+              setLine
+          );
+        } else {
           handlePartialTranscripts(
               incomingTranscripts,
               incomingTranscripts.transcriptEvent,
@@ -47,8 +75,10 @@ const Transcription = ({ setLine, transcripts, lines }) => {
           );
         }
       }
+    }
     transcribeText();
   }, [incomingTranscripts]);
+
 
   
   useEffect(() => {

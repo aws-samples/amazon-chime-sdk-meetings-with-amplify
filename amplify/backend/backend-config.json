@@ -69,6 +69,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Transcribe",
       "convertType": "transcription"
+    },
+    "translateText3a95cd98": {
+      "providerPlugin": "awscloudformation",
+      "service": "Translate",
+      "convertType": "translateText"
     }
   }
 }

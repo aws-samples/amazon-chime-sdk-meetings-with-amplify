@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './App.css';
 import { Container, Header, SpaceBetween } from '@cloudscape-design/components';
+import { useAudioVideo } from 'amazon-chime-sdk-component-library-react';
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
@@ -31,7 +32,44 @@ const handlePartialTranscripts = (incomingTranscripts, outputText, setCurrentLin
 }
 
 const Transcription = ({ setLine, transcripts, lines }) => {
+  const [incomingTranscripts, setIncomingTranscripts] = useState([]);
+  const audioVideo = useAudioVideo();
   const [currentLine, setCurrentLine] = useState({});
+
+  useEffect(() => {
+    async function transcribeText() {
+      if (incomingTranscripts.transcriptEvent) {
+          handlePartialTranscripts(
+              incomingTranscripts,
+              incomingTranscripts.transcriptEvent,
+              setCurrentLine,
+              setLine
+          );
+        }
+      }
+    transcribeText();
+  }, [incomingTranscripts]);
+
+  
+  useEffect(() => {
+    if (!audioVideo) {
+      console.error('No audioVideo');
+      return;
+    }
+    audioVideo.realtimeSubscribeToReceiveDataMessage(
+      'transcriptEvent',
+      (data) => {
+        const receivedData = (data && data.json()) || {};
+        const { message } = receivedData;
+        setIncomingTranscripts(message);
+      },
+    );
+
+    return () => {
+      console.log('unsubscribing from receive data message');
+      audioVideo.realtimeUnsubscribeFromReceiveDataMessage('Message');
+    };
+  }, [audioVideo]);
 
   useEffect(() => {
     async function transcribeText() {
@@ -46,6 +84,21 @@ const Transcription = ({ setLine, transcripts, lines }) => {
     }
     transcribeText();
   }, [transcripts]);
+
+  useEffect(() => {
+    if (!audioVideo) {
+      console.error('No audioVideo');
+      return;
+    }
+    if (transcripts) {
+      audioVideo.realtimeSendDataMessage(
+        'transcriptEvent',
+        { message: transcripts },
+        30000,
+      );
+    }
+  }, [transcripts]);
+
 
   return (
     <Container header={<Header variant='h2'>Transcription</Header>}>

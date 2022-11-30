@@ -63,5 +63,12 @@
         ]
       }
     }
+  },
+  "predictions": {
+    "transcription2e2233df": {
+      "providerPlugin": "awscloudformation",
+      "service": "Transcribe",
+      "convertType": "transcription"
+    }
   }
 }

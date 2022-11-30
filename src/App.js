@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Amplify, Auth } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
+import Transcription from './Transcription';
+import TranscriptionComponent from './TranscriptionComponent';
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
 import VideoMeeting from './VideoMeeting';
@@ -121,8 +123,38 @@ const App = () => {
                   />
                 </Container>
               </SpaceBetween>
+              <Transcription
+                transcribeStatus={transcribeStatus}
+                setTranscribeStatus={setTranscribeStatus}
+                translateStatus={translateStatus}
+                setTranslateStatus={setTranslateStatus}
+                sourceLanguages={sourceLanguages}
+                targetLanguage={sourceLanguage}
+                sourceLanguage={sourceLanguage}
+                setSourceLanguage={setSourceLanguage}
+                setTranscripts={setTranscripts}
+                setLine={setLine}
+                transcripts={transcripts}
+                lines={lines}
+              ></Transcription>
             </SpaceBetween>
           </ContentLayout>
+          <TranscriptionComponent
+            currentCredentials={currentCredentials}
+            currentSession={currentSession}
+            transcribeStatus={transcribeStatus}
+            sourceLanguage={sourceLanguage}
+            setTranscripts={setTranscripts}
+            transcripts={transcripts}
+            lines={lines}
+            localMute={localMute}
+            setMicrophoneStream={setMicrophoneStream}
+            setTranscriptionClient={setTranscriptionClient}
+            microphoneStream={microphoneStream}
+            transcriptionClient={transcriptionClient}
+            user={user}
+          />
+
         </MeetingProvider>
       )}
     </Authenticator>

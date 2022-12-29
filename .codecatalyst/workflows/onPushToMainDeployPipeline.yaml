@@ -24,6 +24,7 @@ Actions:
           - reports/**
     Configuration:
       Steps:
+        - Run: npm install -g yarn
         - Run: yarn
         - Run: yarn run build
         - Run: mkdir -p cdk/frontend/build

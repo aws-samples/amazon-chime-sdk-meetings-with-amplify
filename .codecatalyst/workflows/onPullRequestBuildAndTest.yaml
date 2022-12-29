@@ -21,5 +21,6 @@ Actions:
             - build/**/*
     Configuration:
       Steps:
+        - Run: npm install -g yarn
         - Run: yarn
         - Run: yarn run build

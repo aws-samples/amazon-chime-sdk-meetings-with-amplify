@@ -6001,6 +6001,11 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
+dynamic-import-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/dynamic-import-loader/-/dynamic-import-loader-1.0.0.tgz#ced29c8823b15678f898f9c200778ef7a67e8f73"
+  integrity sha512-vidI/NlD5Bf8OwP3AbKcFUdC4ELt20w5hKuSkN0wZsjhEstMS1DCLNLbI3WL7eeR3n2QRz6AVxzKmnhnc9oDjA==
+
 earcut@^2.2.2, earcut@^2.2.3:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.2.4.tgz#6d02fd4d68160c114825d06890a92ecaae60343a"

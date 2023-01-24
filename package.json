@@ -33,6 +33,7 @@
     "amazon-chime-sdk-js": "^3.8.0",
     "aws-amplify": "^4.3.42",
     "css-loader": "^6.7.1",
+    "dynamic-import-loader": "^1.0.0",
     "interpret": "^3.1.1",
     "microphone-stream": "^6.0.1",
     "process": "^0.11.10",

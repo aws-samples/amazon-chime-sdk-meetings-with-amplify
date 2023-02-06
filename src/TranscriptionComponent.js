@@ -28,7 +28,7 @@ export function TranscriptionComponent(props) {
   };
 
   async function toggleTranscribe() {
-    if (transcribeStatus) {
+    if (transcribeStatus && !localMute) {
       console.log('startRecording');
       await startRecording();
     } else {

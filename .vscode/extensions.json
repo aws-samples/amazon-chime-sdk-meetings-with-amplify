@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        "redhat.vscode-yaml",
+        "amazonwebservices.aws-toolkit-vscode"
+    ]
+}

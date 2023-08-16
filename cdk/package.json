@@ -21,7 +21,7 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "aws-cdk-lib": "2.47.0",
+    "aws-cdk-lib": "2.80.0",
     "@aws-cdk/aws-amplify-alpha": "2.47.0-alpha.0",
     "esbuild": "0.15.13",
     "constructs": "^10.0.0",

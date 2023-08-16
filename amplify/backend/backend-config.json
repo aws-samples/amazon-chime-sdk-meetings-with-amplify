@@ -63,5 +63,11 @@
         ]
       }
     }
+  },
+  "custom": {
+    "customResource38375a82": {
+      "service": "customCDK",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

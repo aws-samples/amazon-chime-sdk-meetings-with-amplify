@@ -1,4 +1,58 @@
 {
+  "api": {
+    "meetingApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "createMeeting"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "endMeeting"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "biz307amplify5b0bba085b0bba08": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "custom": {},
   "function": {
     "createMeeting": {
       "build": true,
@@ -11,63 +65,44 @@
       "service": "Lambda"
     }
   },
-  "api": {
-    "meetingApi": {
-      "service": "API Gateway",
+  "hosting": {
+    "S3AndCloudFront": {
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
+      "service": "S3AndCloudFront"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_createMeeting_deploymentBucketName": {
+      "usedBy": [
         {
           "category": "function",
-          "resourceName": "createMeeting",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "endMeeting",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
+          "resourceName": "createMeeting"
         }
       ]
-    }
-  },
-  "auth": {
-    "biz307amplify5b0bba085b0bba08": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "EMAIL",
-          "NAME"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
-    }
-  },
-  "custom": {
-    "customResource38375a82": {
-      "service": "customCDK",
-      "providerPlugin": "awscloudformation"
+    },
+    "AMPLIFY_function_createMeeting_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createMeeting"
+        }
+      ]
+    },
+    "AMPLIFY_function_endMeeting_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "endMeeting"
+        }
+      ]
+    },
+    "AMPLIFY_function_endMeeting_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "endMeeting"
+        }
+      ]
     }
   }
 }
